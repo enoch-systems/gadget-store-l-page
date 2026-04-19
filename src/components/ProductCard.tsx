@@ -16,16 +16,13 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
   const [flyPosition, setFlyPosition] = useState({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const [isZoomed, setIsZoomed] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const nextImage = () => {
-    setSlideDirection('left');
     setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
   };
 
   const prevImage = () => {
-    setSlideDirection('right');
     setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
   };
 
@@ -159,10 +156,7 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
           key={currentImageIndex}
           src={product.images[currentImageIndex]}
           alt={product.name}
-          className={`w-full h-[200px] sm:h-[280px] object-contain transition-all duration-500 group-hover:scale-105 cursor-pointer pt-2 ${
-            slideDirection === 'left' ? 'slide-in-left' : slideDirection === 'right' ? 'slide-in-right' : ''
-          }`}
-          onAnimationEnd={() => setSlideDirection(null)}
+          className="w-full h-[200px] sm:h-[280px] object-contain transition-all duration-500 group-hover:scale-105 cursor-pointer pt-2"
           onClick={() => setIsZoomed(true)}
         />
         {product.images.length > 1 && (
