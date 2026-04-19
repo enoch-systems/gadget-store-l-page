@@ -15,10 +15,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ZinnyStore - Premium Wigs & Hair Extensions",
-  description: "Discover beautiful wigs, human hair, and premium hair extensions at ZinnyStore. Shop our collection of lace front wigs, full lace wigs, and more for the perfect look.",
+  title: "PrinzGadget - Premium Tech Store",
+  description: "Discover the latest gadgets, smartphones, gaming consoles, laptops, and premium tech accessories. Shop iPhone, Samsung Galaxy, PlayStation, JBL speakers, MacBook Air, and more at PrinzGadget.",
   icons: {
-    icon: '/product-images/product1/product1_image1.avif',
+    icon: '/banner-images/phone1.jpg',
   },
 };
 
