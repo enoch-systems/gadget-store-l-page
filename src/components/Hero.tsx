@@ -8,29 +8,29 @@ export default function Hero() {
 
   const slides = [
     {
-      image: '/banner-images/banner1.jpg',
-      title: 'Elegant Wigs & Accessories',
-      subtitle: 'Discover your perfect style',
+      image: '/banner-images/phone1.jpg',
+      title: 'Premium Smartphones',
+      subtitle: 'Discover cutting-edge mobile devices',
     },
     {
-      image: '/banner-images/banner2.jpg',
-      title: 'Beautiful Hair, Beautiful You',
-      subtitle: 'Embrace your natural beauty',
+      image: '/banner-images/phone2.jpg',
+      title: 'Innovation Meets Style',
+      subtitle: 'Elevate your digital experience',
     },
     {
-      image: '/banner-images/banner3.jpg',
-      title: 'Premium Quality Wigs',
-      subtitle: 'Crafted with love and care',
+      image: '/banner-images/phone3.jpg',
+      title: 'Next-Gen Accessories',
+      subtitle: 'Engineered for excellence',
     },
     {
-      image: '/banner-images/banner4.jpg',
-      title: 'Latest Fashion Trends',
-      subtitle: 'Stay ahead of the curve',
+      image: '/banner-images/phone4.jpg',
+      title: 'Advanced Phone Devices',
+      subtitle: 'Intelligent mobile solutions for you',
     },
     {
-      image: '/banner-images/banner5.jpg',
-      title: 'Exclusive Collections',
-      subtitle: 'Unique styles for you',
+      image: '/banner-images/phone5.jpg',
+      title: 'Exclusive Gadgets',
+      subtitle: 'Limited edition tech releases',
     },
   ];
 
@@ -50,7 +50,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-[25vh] sm:h-[35vh] mt-20 sm:mt-24">
+    <section className="relative h-[35vh] sm:h-[45vh] md:h-[55vh] mt-20 sm:mt-24 overflow-hidden bg-gray-200">
       <div className="relative w-full h-full overflow-hidden">
         {slides.map((slide, index) => (
           <div
@@ -64,22 +64,25 @@ export default function Hero() {
               alt={slide.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-900/20 to-rose-900/20" />
+            <div className="absolute inset-0 bg-gray-900/70" />
           </div>
         ))}
 
         {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-xl">
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-tight font-playfair tracking-wide">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight">
                 {slides[currentSlide].title}
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-white/95 mt-4 font-light tracking-wide">
+              <p className="text-base sm:text-lg md:text-xl text-gray-200 mt-4 font-light tracking-wide">
                 {slides[currentSlide].subtitle}
               </p>
-              <Link href="/shop" className="bg-gradient-to-r from-pink-400 to-rose-400 text-white px-8 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base font-semibold hover:from-pink-500 hover:to-rose-500 hover:scale-105 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl mt-6 cursor-pointer inline-block">
-                Shop Now
+              <Link href="/shop" className="inline-flex items-center gap-2 bg-gradient-to-r from-slate-600 via-slate-800 to-black text-white px-8 sm:px-10 md:px-12 py-3 sm:py-4 text-sm sm:text-base font-semibold hover:from-slate-500 hover:via-slate-700 hover:to-gray-900 hover:scale-105 transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl mt-6 cursor-pointer">
+                Explore Collection
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
             </div>
           </div>
@@ -92,7 +95,7 @@ export default function Hero() {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-white' : 'bg-white/50'
+                index === currentSlide ? 'bg-white' : 'bg-white/40'
               }`}
             />
           ))}

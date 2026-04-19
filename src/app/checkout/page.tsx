@@ -13,7 +13,7 @@ export default function CheckoutPage() {
   const handleCheckout = () => {
     if (cart.length === 0) return;
 
-    let message = 'Hi ZinnyStore 👋\n\n';
+    let message = 'Hi PrinzGadget 👋\n\n';
     message += '#NEW ORDER\n\n';
     message += 'Here is my order:\n\n';
     
@@ -82,7 +82,7 @@ export default function CheckoutPage() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                     <div className="flex-grow flex flex-col justify-between">

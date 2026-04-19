@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-pink-100">
+      <body className="min-h-full flex flex-col bg-white">
         <Providers>{children}</Providers>
       </body>
     </html>

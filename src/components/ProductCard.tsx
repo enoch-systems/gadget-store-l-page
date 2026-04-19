@@ -16,13 +16,16 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
   const [flyPosition, setFlyPosition] = useState({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const [isZoomed, setIsZoomed] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const nextImage = () => {
+    setSlideDirection('left');
     setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
   };
 
   const prevImage = () => {
+    setSlideDirection('right');
     setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
   };
 
@@ -102,12 +105,14 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
     <>
       {isZoomed && (
         <div
-          className="fixed inset-0 z-50 bg-white/95 flex items-center justify-center cursor-pointer"
+          className="fixed inset-0 z-50 bg-white/95 flex flex-col items-center justify-center cursor-pointer"
           onClick={() => setIsZoomed(false)}
         >
+          <p className="absolute top-28 text-gray-600 text-sm font-medium">Click here to exit</p>
+          <p className="absolute bottom-28 text-gray-600 text-sm font-medium">Click here to exit</p>
           <button
             onClick={(e) => { e.stopPropagation(); prevImage(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-gray-200/80 hover:bg-gray-300 p-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-gray-700 hover:text-gray-800"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-gray-900/10 hover:bg-gray-900/20 p-3 rounded-full backdrop-blur-sm transition-all duration-300 text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -121,7 +126,7 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
           />
           <button
             onClick={(e) => { e.stopPropagation(); nextImage(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-gray-200/80 hover:bg-gray-300 p-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-gray-700 hover:text-gray-800"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-gray-900/10 hover:bg-gray-900/20 p-3 rounded-full backdrop-blur-sm transition-all duration-300 text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -141,36 +146,40 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
             '--target-y': `${flyPosition.targetY - flyPosition.y}px`
           } as React.CSSProperties}
         >
-          <div className="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
           </div>
         </div>
       )}
-      <div className={`group cursor-pointer transition-all duration-300 hover:scale-[1.02] border border-pink-100 border-t-4 border-t-pink-500 rounded-3xl bg-white shadow-sm hover:shadow-lg pb-4 mt-3 ${isMenuOpen ? 'blur-sm pointer-events-none' : ''}`}>
-        <div className="relative overflow-hidden mb-4 sm:mb-6 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300">
+      <div className={`group cursor-pointer transition-all duration-300 hover:scale-[1.02] border border-gray-200 rounded-2xl bg-white shadow-sm hover:shadow-xl pb-4 mt-3 ${isMenuOpen ? 'blur-sm pointer-events-none' : ''}`}>
+        <div className="relative overflow-hidden mb-4 sm:mb-6 rounded-xl bg-gray-50 group-hover:shadow-md transition-all duration-300">
         <img
+          key={currentImageIndex}
           src={product.images[currentImageIndex]}
           alt={product.name}
-          className="w-full h-[250px] sm:h-[350px] object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer"
+          className={`w-full h-[200px] sm:h-[280px] object-contain transition-all duration-500 group-hover:scale-105 cursor-pointer pt-2 ${
+            slideDirection === 'left' ? 'slide-in-left' : slideDirection === 'right' ? 'slide-in-right' : ''
+          }`}
+          onAnimationEnd={() => setSlideDirection(null)}
           onClick={() => setIsZoomed(true)}
         />
         {product.images.length > 1 && (
           <>
             <button
               onClick={prevImage}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-pink-200/80 hover:bg-pink-300 p-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-pink-700 hover:text-pink-800"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-gray-700 hover:text-gray-900 backdrop-blur-sm"
             >
-              <svg className="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-pink-200/80 hover:bg-pink-300 p-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-pink-700 hover:text-pink-800"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-gray-700 hover:text-gray-900 backdrop-blur-sm"
             >
-              <svg className="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -189,22 +198,18 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
         )}
         </div>
         <div className="space-y-2 sm:space-y-3 px-3 sm:px-4">
-        <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors text-xs sm:text-sm font-playfair">
+        <h3 className="font-semibold text-gray-900 group-hover:text-gray-700 transition-colors text-xs sm:text-sm">
           {product.name}
         </h3>
-        <div className="flex items-center space-x-1">
-          <div className="flex">{renderStars(product.rating)}</div>
-          <span className="text-[10px] sm:text-xs text-gray-500">({product.rating})</span>
-        </div>
-        <p className="font-bold text-gray-900 text-sm sm:text-base font-playfair">₦{product.price.toLocaleString()}</p>
+        <p className="font-bold text-gray-900 text-sm sm:text-base">₦{product.price.toLocaleString()}</p>
         <button 
           ref={buttonRef}
           onClick={handleAddToCart}
           disabled={isFlying || isAdded}
-          className={`w-full py-2 sm:py-3 px-4 text-[11px] sm:text-sm font-medium rounded-full shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ${
+          className={`w-full py-2 sm:py-3 px-4 text-[11px] sm:text-sm font-medium rounded-lg shadow-sm hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ${
             isAdded 
-              ? 'bg-orange-500 text-white' 
-              : 'bg-gradient-to-r from-pink-400 to-rose-400 text-white hover:from-pink-500 hover:to-rose-500 hover:scale-105'
+              ? 'bg-gray-900 text-white' 
+              : 'bg-gray-900 text-white hover:bg-gray-800 hover:scale-105'
           }`}
         >
           {isAdded ? (
@@ -215,10 +220,10 @@ export default function ProductCard({ product, isMenuOpen = false }: ProductCard
               Added
             </div>
           ) : (
-            'Add to Whatsapp order'
+            'Add to whatsapp order'
           )}
         </button>
-        <p className="text-xs sm:text-sm text-gray-600 font-medium text-center mt-3">You chat / call vendor before you buy</p>
+        <p className="text-xs sm:text-sm text-gray-600 font-medium text-center mt-3">You chat / call seller before you buy</p>
       </div>
     </div>
     </>
