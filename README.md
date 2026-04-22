@@ -2,13 +2,9 @@
 
 A modern, responsive e-commerce store built with Next.js 16 and React 19, featuring a premium tech product catalog with shopping cart functionality and WhatsApp-based checkout.
 
----
-
 ## Project Overview
 
 Gadget Store is a fully functional e-commerce platform designed for selling premium tech products including smartphones, audio equipment, gaming consoles, and laptops. It features client-side cart management with localStorage persistence, WhatsApp integration for seamless checkout, and a responsive design optimized for all devices.
-
----
 
 ## Features
 
@@ -30,8 +26,6 @@ Gadget Store is a fully functional e-commerce platform designed for selling prem
 - Optimized performance with automatic code splitting
 - SEO-friendly structure with proper metadata
 
----
-
 ## Tech Stack
 
 ### Frontend
@@ -48,8 +42,6 @@ Gadget Store is a fully functional e-commerce platform designed for selling prem
 - ESLint
 - Git
 - Node.js
-
----
 
 ## Project Structure
 
@@ -110,8 +102,6 @@ npm run dev
 Live Demo: [https://prinzgadget.vercel.app](https://prinzgadget.vercel.app)
 
 This project is deployed on Vercel (automatic deployment from GitHub).
-
----
 
 ## Contact
 
